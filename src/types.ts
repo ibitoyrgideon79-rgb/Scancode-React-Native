@@ -8,6 +8,7 @@ export type RootStackParamList = {
   Dashboard: undefined;
   CreateStorefront: undefined;
   ActivateQR: { storefrontId: number; slug: string; name: string };
+  StorefrontManage: { storefrontId: number; name: string };
   QR: { slug: string; name: string };
 };
 

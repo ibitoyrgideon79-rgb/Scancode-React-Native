@@ -12,6 +12,7 @@ import DashboardScreen from './src/screens/DashboardScreen';
 import CreateStorefrontScreen from './src/screens/CreateStorefrontScreen';
 import ActivateQRScreen from './src/screens/ActivateQRScreen';
 import QRScreen from './src/screens/QRScreen';
+import StorefrontManageScreen from './src/screens/StorefrontManageScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -57,6 +58,14 @@ export default function App() {
           <Stack.Screen
             name="ActivateQR"
             component={ActivateQRScreen}
+            options={({ route }) => ({
+              title: route.params.name,
+              headerBackTitle: 'Back',
+            })}
+          />
+          <Stack.Screen
+            name="StorefrontManage"
+            component={StorefrontManageScreen}
             options={({ route }) => ({
               title: route.params.name,
               headerBackTitle: 'Back',

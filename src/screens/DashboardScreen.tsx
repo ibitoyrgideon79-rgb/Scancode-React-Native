@@ -104,6 +104,20 @@ export default function DashboardScreen({ navigation }: Props) {
             </TouchableOpacity>
           )}
         </View>
+        {published && (
+          <TouchableOpacity
+            style={styles.manageBtn}
+            onPress={() =>
+              navigation.navigate('StorefrontManage', {
+                storefrontId: item.id,
+                name: item.name,
+              })
+            }
+            activeOpacity={0.7}
+          >
+            <Text style={styles.manageBtnText}>Manage sales & wallet</Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -219,6 +233,14 @@ const styles = StyleSheet.create({
   cardDesc: { fontSize: 13, color: '#6B7280', marginBottom: 6 },
   cardType: { fontSize: 12, color: '#9CA3AF', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 0.5 },
   cardActions: { flexDirection: 'row', gap: 8 },
+  manageBtn: {
+    alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: '#EEF2FF',
+    marginTop: 10,
+    paddingVertical: 10,
+  },
+  manageBtnText: { color: '#4F46E5', fontSize: 14, fontWeight: '700' },
   actionBtn: {
     flex: 1,
     borderWidth: 1.5,
