@@ -17,7 +17,7 @@ interface Props {
   navigation: NavigationProp<'CreateStorefront'>;
 }
 
-const BUSINESS_TYPES = ['PRODUCT', 'HOTEL'] as const;
+const BUSINESS_TYPES = ['PRODUCT', 'RESTAURANT', 'HOTEL'] as const;
 type BusinessType = (typeof BUSINESS_TYPES)[number];
 
 export default function CreateStorefrontScreen({ navigation }: Props) {

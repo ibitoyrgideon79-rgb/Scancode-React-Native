@@ -4,7 +4,8 @@ Expo merchant app for creating storefronts, activating QR codes, tracking paid s
 
 ## Run on a device
 
-Set `EXPO_PUBLIC_API_URL` to the backend address the phone can reach, then start Expo:
+The app defaults to the production API (`https://api.scancode.ng`). For local development,
+set `EXPO_PUBLIC_API_URL` to a backend address the phone can reach, then start Expo:
 
 ```powershell
 $env:EXPO_PUBLIC_API_URL = "http://192.168.1.25:8082"
@@ -13,7 +14,9 @@ npm start
 
 Replace the example address with your development computer's LAN IP. The phone and computer must be on the same network, and the backend port must be reachable through the computer's firewall. For an Android emulator, use `http://10.0.2.2:8082`; for a physical phone, `localhost` points to the phone and will not reach the computer. For production, use the HTTPS API URL.
 
-The app also defaults to `http://localhost:8082` when `EXPO_PUBLIC_API_URL` is unset, which is suitable only when the backend is reachable at localhost from the app runtime.
+Payment checkout returns to the app through the `scancode://payment-complete` deep link.
+Use a development or production build with the `scancode` scheme configured in `app.json`;
+Expo Go does not install this app-specific scheme.
 
 ## Merchant payments
 

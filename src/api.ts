@@ -1,6 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 
-export const API_BASE = (process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8082').replace(/\/$/, '');
+export const API_BASE = (process.env.EXPO_PUBLIC_API_URL || 'https://api.scancode.ng').replace(/\/$/, '');
+export const PAYMENT_REDIRECT_URL = 'scancode://payment-complete';
 const TOKEN_KEY = 'scancode_token';
 const payoutKey = (storefrontId: number) => `scancode_payout_${storefrontId}`;
 
@@ -72,7 +73,7 @@ async function request<T>(
     let message = `HTTP ${res.status}`;
     try {
       const err = await res.json();
-      message = err.message ?? err.error ?? message;
+      message = `HTTP ${res.status}: ${err.message ?? err.error ?? 'Request failed'}`;
     } catch {
       // ignore parse errors
     }
@@ -237,6 +238,7 @@ export function initializePayment(purpose: PaymentPurpose, slug: string) {
   return request<PaymentInitResponse>('POST', '/api/payments/initialize', {
     purpose,
     payload: JSON.stringify({ slug }),
+    redirectUrl: PAYMENT_REDIRECT_URL,
   });
 }
 

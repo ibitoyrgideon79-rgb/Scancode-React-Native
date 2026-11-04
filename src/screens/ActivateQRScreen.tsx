@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { initializePayment, verifyPayment } from '../api';
+import { initializePayment, PAYMENT_REDIRECT_URL, verifyPayment } from '../api';
 import type { NavigationProp, RouteProps } from '../types';
 
 interface Props {
@@ -33,9 +33,11 @@ export default function ActivateQRScreen({ navigation, route }: Props) {
       setReference(res.reference);
       setStep('waiting');
 
-      await WebBrowser.openBrowserAsync(res.authorizationUrl);
+      const browserResult = await WebBrowser.openAuthSessionAsync(
+        res.authorizationUrl,
+        PAYMENT_REDIRECT_URL,
+      );
 
-      // Browser returned — user may have completed payment
       setStep('verifying');
       await handleVerify(res.reference);
     } catch (err: unknown) {

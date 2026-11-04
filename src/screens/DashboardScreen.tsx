@@ -29,7 +29,11 @@ export default function DashboardScreen({ navigation }: Props) {
     setError(null);
     try {
       const data = await getMyStorefronts();
-      setStorefronts(data);
+      // Mobile only populates storefronts (PRODUCT, RESTAURANT, HOTEL), filtering out events and business cards
+      const storefrontsOnly = data.filter(
+        (item) => item.businessType !== 'EVENT' && item.businessType !== 'BUSINESSCARD',
+      );
+      setStorefronts(storefrontsOnly);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load storefronts.');
     } finally {
